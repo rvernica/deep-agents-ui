@@ -9,8 +9,16 @@
 ```bash
 git clone https://github.com/langchain-ai/deep-agents-ui.git
 cd deep-agents-ui
-yarn install
-yarn dev
+npx yarn install
+npx next dev --turbopack
+```
+
+To make the dev server reachable from another host (e.g. behind a reverse
+proxy on a custom domain), bind it with `--hostname` and allow that origin via
+the `ALLOWED_DEV_ORIGINS` environment variable:
+
+```bash
+ALLOWED_DEV_ORIGINS=agents.example.com npx next dev --turbopack --hostname 0.0.0.0
 ```
 
 **Deploy a Deep Agent**
@@ -79,6 +87,14 @@ NEXT_PUBLIC_LANGSMITH_API_KEY="lsv2_xxxx"
 ```
 
 **Note:** Settings configured in the UI take precedence over environment variables.
+
+To allow the dev server to be accessed through additional hosts (e.g. a custom
+domain fronting `next dev`), set a comma-separated list of hostnames. This only
+affects `next dev`; unset means only `localhost` is allowed.
+
+```env
+ALLOWED_DEV_ORIGINS="agents.example.com,other.example.com"
+```
 
 ### Usage
 
